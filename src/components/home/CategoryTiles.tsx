@@ -7,7 +7,7 @@ const categories = [
     number: '01',
     title: 'Gaming PC',
     label: 'PREBUILTS',
-    image: 'https://images.unsplash.com/photo-1587202372775-e229f172b9d7',
+    image: 'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=960&q=80',
     href: '/prebuilts',
     className: 'category-tile--gaming',
   },
@@ -15,7 +15,7 @@ const categories = [
     number: '02',
     title: 'Workstations',
     label: 'POWER THROUGH',
-    image: 'https://images.unsplash.com/photo-1593640408182-31c70c8268f5',
+    image: 'https://images.unsplash.com/photo-1593640408182-31c70c8268f5?auto=format&fit=crop&w=960&q=80',
     href: '/workstations',
     className: 'category-tile--workstation',
   },
@@ -23,7 +23,7 @@ const categories = [
     number: '03',
     title: 'Outlet',
     label: 'LAST CHANCE',
-    image: 'https://images.unsplash.com/photo-1591488320449-011701bb6704',
+    image: 'https://images.unsplash.com/photo-1591488320449-011701bb6704?auto=format&fit=crop&w=960&q=80',
     href: '/outlet',
     className: 'category-tile--outlet',
   },
@@ -31,7 +31,7 @@ const categories = [
     number: '04',
     title: 'Monthly Drops',
     label: 'LIMITED RUN',
-    image: 'https://images.unsplash.com/photo-1593642632823-8f785ba67e45',
+    image: 'https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&w=960&q=80',
     href: '/monthly-drops',
     className: 'category-tile--drops',
   },
@@ -51,7 +51,7 @@ function CategoryTiles() {
             key={category.number}
             to={category.href}
           >
-            <LazyImage alt="" data-image-reveal height="720" loading="lazy" src={category.image} width="960" />
+            <LazyImage alt="" data-image-reveal height="720" loading="eager" src={category.image} width="960" />
             <span className="category-tile__shade" />
             <span className="category-tile__number">{category.number}</span>
             <span className="category-tile__content">

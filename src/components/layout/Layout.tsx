@@ -149,18 +149,15 @@ function Layout() {
         {searchOpen && <SearchOverlay key="search" onClose={() => setSearchOpen(false)} />}
       </AnimatePresence>
       <CartDrawer open={cartOpen} onClose={closeCart} />
-      <AnimatePresence initial={false} mode="wait">
-        <motion.main
-          animate={{ opacity: 1, x: 0 }}
-          className="page-content"
-          exit={reducedMotion ? undefined : { opacity: 0, x: -12 }}
-          initial={reducedMotion ? false : { opacity: 0, x: 12 }}
-          key={location.pathname}
-          transition={{ duration: reducedMotion ? 0 : 0.3, ease: [0.455, 0.03, 0.515, 0.955] }}
-        >
-          <Outlet />
-        </motion.main>
-      </AnimatePresence>
+      <motion.main
+        animate={{ opacity: 1 }}
+        className="page-content"
+        initial={reducedMotion ? false : { opacity: 0 }}
+        key={location.pathname}
+        transition={{ duration: reducedMotion ? 0 : 0.15 }}
+      >
+        <Outlet />
+      </motion.main>
       <Footer />
     </div>
   )

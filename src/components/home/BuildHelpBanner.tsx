@@ -11,7 +11,7 @@ function BuildHelpBanner() {
           height="720"
           loading="lazy"
           data-image-reveal
-          src="https://images.unsplash.com/photo-1587202372775-e229f172b9d7"
+          src="https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=1200&q=80"
           width="900"
         />
         <span aria-hidden="true">THE BUILD STARTS HERE</span>

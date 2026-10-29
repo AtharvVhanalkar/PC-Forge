@@ -32,8 +32,8 @@ export interface Prebuilt {
   rating: number
 }
 
-const pcImage = 'https://images.unsplash.com/photo-1587202372775-e229f172b9d7'
-const snowImage = 'https://images.unsplash.com/photo-1593640408182-31c70c8268f5'
+const pcImage = 'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=1200&q=80'
+const snowImage = 'https://images.unsplash.com/photo-1593640408182-31c70c8268f5?auto=format&fit=crop&w=1200&q=80'
 
 export const prebuilts: Prebuilt[] = [
   {
