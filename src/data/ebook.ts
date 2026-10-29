@@ -5,5 +5,5 @@ export const firstPcGamerEbook: CartDigitalItem = {
   id: 'ebook-first-time-pc-gamer',
   name: 'First-Time PC Gamer eBook',
   price: 14.99,
-  image: 'https://images.unsplash.com/photo-1593640408182-31c70c8268f5',
+  image: 'https://images.unsplash.com/photo-1593640408182-31c70c8268f5?auto=format&fit=crop&w=800&q=80',
 }

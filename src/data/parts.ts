@@ -56,17 +56,17 @@ type PartSeed = readonly [
 ]
 
 const categoryImages: Record<PartCategory, string> = {
-  CPU: 'https://images.unsplash.com/photo-1555617981-dac3880eac6e',
-  GPU: 'https://images.unsplash.com/photo-1591488320449-011701bb6704',
-  Motherboard: 'https://images.unsplash.com/photo-1518770660439-4636190af475',
-  RAM: 'https://images.unsplash.com/photo-1562976540-1502c2145186',
-  Storage: 'https://images.unsplash.com/photo-1597872200969-2b65d56bd16b',
-  PSU: 'https://images.unsplash.com/photo-1587202372775-e229f172b9d7',
-  Case: 'https://images.unsplash.com/photo-1587202372634-32705e3bf49c',
-  Cooling: 'https://images.unsplash.com/photo-1587202372775-e229f172b9d7',
-  Fans: 'https://images.unsplash.com/photo-1587202372775-e229f172b9d7',
-  Monitors: 'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf',
-  Peripherals: 'https://images.unsplash.com/photo-1587829741301-dc798b83add3',
+  CPU: 'https://images.unsplash.com/photo-1555617981-dac3880eac6e?auto=format&fit=crop&w=800&q=80',
+  GPU: 'https://images.unsplash.com/photo-1591488320449-011701bb6704?auto=format&fit=crop&w=800&q=80',
+  Motherboard: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80',
+  RAM: 'https://images.unsplash.com/photo-1562976540-1502c2145186?auto=format&fit=crop&w=800&q=80',
+  Storage: 'https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=800&q=80',
+  PSU: 'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=800&q=80',
+  Case: 'https://images.unsplash.com/photo-1587202372634-32705e3bf49c?auto=format&fit=crop&w=800&q=80',
+  Cooling: 'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=800&q=80',
+  Fans: 'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=800&q=80',
+  Monitors: 'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=800&q=80',
+  Peripherals: 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=800&q=80',
 }
 
 const partSeeds: PartSeed[] = [

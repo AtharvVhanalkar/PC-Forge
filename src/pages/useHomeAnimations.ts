@@ -11,127 +11,131 @@ function useHomeAnimations(rootRef: RefObject<HTMLElement | null>) {
     const root = rootRef.current
     if (!root) return
 
-    const responsiveAnimations = gsap.matchMedia(root)
-    responsiveAnimations.add('(prefers-reduced-motion: no-preference)', () => {
-      const context = gsap.context(() => {
-        responsiveAnimations.add('(min-width: 760px)', () => {
-          const animeAnimations: JSAnimation[] = []
-          const heroChars = root.querySelectorAll<HTMLElement>('[data-hero-char]')
-          gsap.fromTo(
-            heroChars,
-            { yPercent: 120, rotate: 3 },
-            { yPercent: 0, rotate: 0, duration: 0.9, ease: 'power3.out', stagger: 0.035, delay: 0.12 },
-          )
-          gsap.fromTo(
-            root.querySelectorAll<HTMLElement>('[data-hero-fade]'),
-            { opacity: 0, y: 18 },
-            { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', stagger: 0.12, delay: 0.25 },
-          )
+    const mm = gsap.matchMedia(root)
 
-          animateReveals(root, 0.8, 40, 0.12)
+    mm.add('(min-width: 760px) and (prefers-reduced-motion: no-preference)', () => {
+      const animeAnimations: JSAnimation[] = []
+      const heroChars = root.querySelectorAll<HTMLElement>('[data-hero-char]')
+      gsap.fromTo(
+        heroChars,
+        { yPercent: 120, rotate: 3 },
+        { yPercent: 0, rotate: 0, duration: 0.9, ease: 'power3.out', stagger: 0.035, delay: 0.12 },
+      )
+      gsap.fromTo(
+        root.querySelectorAll<HTMLElement>('[data-hero-fade]'),
+        { opacity: 0, y: 18 },
+        { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', stagger: 0.12, delay: 0.25 },
+      )
 
-          const parallaxImages = root.querySelectorAll<HTMLElement>('[data-home-parallax]')
-          parallaxImages.forEach((image) => {
-            gsap.fromTo(
-              image,
-              { yPercent: -4 },
-              {
-                yPercent: 4,
-                ease: 'none',
-                scrollTrigger: {
-                  trigger: image.parentElement,
-                  start: 'top bottom',
-                  end: 'bottom top',
-                  scrub: true,
-                },
-              },
-            )
-          })
+      animateReveals(root, 0.8, 40, 0.12)
 
-          const buildSection = root.querySelector<HTMLElement>('[data-pinned-build]')
-          const model = buildSection?.querySelector<HTMLElement>('.build-pc-model')
-          const callouts = buildSection?.querySelectorAll<HTMLElement>('[data-build-callout]')
-          if (buildSection && model && callouts?.length) {
-            const buildTimeline = gsap.timeline({
-              scrollTrigger: {
-                trigger: buildSection,
-                start: 'top top',
-                end: '+=1500',
-                scrub: 0.8,
-                pin: true,
-                anticipatePin: 1,
-              },
-            })
-            buildTimeline.to(model, { rotationY: 330, rotationX: 9, ease: 'none' }, 0)
-            callouts.forEach((callout, index) => {
-              buildTimeline.fromTo(
-                callout,
-                { autoAlpha: 0, y: 16 },
-                { autoAlpha: 1, y: 0, duration: 0.3, ease: 'power3.out' },
-                0.08 + index * 0.22,
-              )
-            })
-          }
+      const parallaxImages = root.querySelectorAll<HTMLElement>('[data-home-parallax]')
+      parallaxImages.forEach((image) => {
+        gsap.fromTo(
+          image,
+          { yPercent: -4 },
+          {
+            yPercent: 4,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: image.parentElement,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: true,
+            },
+          },
+        )
+      })
 
-          const pillars = root.querySelector<HTMLElement>('.why-prebuilts__grid')
-          const svgPaths = pillars?.querySelectorAll<SVGGeometryElement>(
-            '.pillar-card__icon path, .pillar-card__icon circle',
-          )
-          if (pillars && svgPaths?.length) {
-            const drawables = animeSvg.createDrawable(svgPaths)
-            const drawing = animeAnimate(drawables, {
-              draw: ['0 0', '0 1'],
-              delay: animeStagger(100),
-              duration: 900,
-              ease: 'inOutSine',
-              autoplay: false,
-            })
-            animeAnimations.push(drawing)
-            ScrollTrigger.create({
-              trigger: pillars,
-              start: 'top 85%',
-              once: true,
-              onEnter: () => drawing.play(),
-            })
-          }
-
-          const statElements = root.querySelectorAll<HTMLElement>('[data-stat-value]')
-          statElements.forEach((stat) => {
-            const target = Number(stat.dataset.statValue)
-            const counterDisplay = stat.querySelector<HTMLElement>('[data-stat-number]')
-            if (!counterDisplay || !Number.isFinite(target)) return
-
-            const counter = { value: 0 }
-            const countAnimation = animeAnimate(counter, {
-              value: target,
-              duration: 900,
-              ease: 'out(3)',
-              autoplay: false,
-              onUpdate: () => {
-                counterDisplay.textContent = Math.round(counter.value).toLocaleString()
-              },
-            })
-            animeAnimations.push(countAnimation)
-            ScrollTrigger.create({
-              trigger: stat,
-              start: 'top 85%',
-              once: true,
-              onEnter: () => countAnimation.play(),
-            })
-          })
-
-          return () => animeAnimations.forEach((animation) => animation.revert())
+      const buildSection = root.querySelector<HTMLElement>('[data-pinned-build]')
+      const model = buildSection?.querySelector<HTMLElement>('.build-pc-model')
+      const callouts = buildSection?.querySelectorAll<HTMLElement>('[data-build-callout]')
+      if (buildSection && model && callouts?.length) {
+        const buildTimeline = gsap.timeline({
+          scrollTrigger: {
+            trigger: buildSection,
+            start: 'top top',
+            end: '+=1500',
+            scrub: 0.8,
+            pin: true,
+            anticipatePin: 1,
+          },
         })
-
-        responsiveAnimations.add('(max-width: 759px)', () => {
-          animateReveals(root, 0.4, 18, 0)
+        buildTimeline.to(model, { rotationY: 330, rotationX: 9, ease: 'none' }, 0)
+        callouts.forEach((callout, index) => {
+          buildTimeline.fromTo(
+            callout,
+            { autoAlpha: 0, y: 16 },
+            { autoAlpha: 1, y: 0, duration: 0.3, ease: 'power3.out' },
+            0.08 + index * 0.22,
+          )
         })
-      }, root)
+      }
 
-      return () => context.revert()
+      const pillars = root.querySelector<HTMLElement>('.why-prebuilts__grid')
+      const svgPaths = pillars?.querySelectorAll<SVGGeometryElement>(
+        '.pillar-card__icon path, .pillar-card__icon circle',
+      )
+      if (pillars && svgPaths?.length) {
+        const drawables = animeSvg.createDrawable(svgPaths)
+        const drawing = animeAnimate(drawables, {
+          draw: ['0 0', '0 1'],
+          delay: animeStagger(100),
+          duration: 900,
+          ease: 'inOutSine',
+          autoplay: false,
+        })
+        animeAnimations.push(drawing)
+        ScrollTrigger.create({
+          trigger: pillars,
+          start: 'top 85%',
+          once: true,
+          onEnter: () => drawing.play(),
+        })
+      }
+
+      const statElements = root.querySelectorAll<HTMLElement>('[data-stat-value]')
+      statElements.forEach((stat) => {
+        const target = Number(stat.dataset.statValue)
+        const counterDisplay = stat.querySelector<HTMLElement>('[data-stat-number]')
+        if (!counterDisplay || !Number.isFinite(target)) return
+
+        const counter = { value: 0 }
+        const countAnimation = animeAnimate(counter, {
+          value: target,
+          duration: 900,
+          ease: 'out(3)',
+          autoplay: false,
+          onUpdate: () => {
+            counterDisplay.textContent = Math.round(counter.value).toLocaleString()
+          },
+        })
+        animeAnimations.push(countAnimation)
+        ScrollTrigger.create({
+          trigger: stat,
+          start: 'top 85%',
+          once: true,
+          onEnter: () => countAnimation.play(),
+        })
+      })
+
+      return () => {
+        animeAnimations.forEach((animation) => animation.revert())
+      }
     })
 
-    return () => responsiveAnimations.revert()
+    mm.add('(max-width: 759px) and (prefers-reduced-motion: no-preference)', () => {
+      animateReveals(root, 0.4, 18, 0)
+    })
+
+    return () => {
+      mm.revert()
+      ScrollTrigger.getAll().forEach((trigger) => {
+        if (trigger.trigger && root.contains(trigger.trigger as Node)) {
+          trigger.kill(true)
+        }
+      })
+    }
   }, [rootRef])
 }
 
