@@ -10464,36 +10464,7 @@ p {
   text-underline-offset: 0.2em;
 }
 
-.custom-cursor {
-  position: fixed;
-  z-index: 1500;
-  top: 0;
-  left: 0;
-  width: 1.25rem;
-  height: 1.25rem;
-  border: 1px solid rgb(255 255 255 / 85%);
-  border-radius: 50%;
-  background: rgb(225 29 46 / 35%);
-  box-shadow: 0 0 1.1rem rgb(225 29 46 / 38%);
-  opacity: 0;
-  pointer-events: none;
-  will-change: transform, opacity;
-}
 
-.custom-cursor.is-interactive {
-  border-color: var(--color-accent-hover);
-  background: rgb(225 29 46 / 18%);
-}
-
-.has-custom-cursor,
-.has-custom-cursor body,
-.has-custom-cursor a,
-.has-custom-cursor button,
-.has-custom-cursor input,
-.has-custom-cursor select,
-.has-custom-cursor textarea {
-  cursor: none !important;
-}
 
 @media (hover: hover) {
   a,
@@ -10531,10 +10502,6 @@ p {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .custom-cursor {
-    display: none !important;
-  }
-
   .lazy-image__img[data-image-reveal] {
     clip-path: none !important;
   }

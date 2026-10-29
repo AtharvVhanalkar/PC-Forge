@@ -1,4 +1,4 @@
-import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { config } from '../../config'
@@ -10,8 +10,7 @@ import Header from './Header'
 import SearchOverlay from './SearchOverlay'
 import Toast from '../ui/Toast'
 
-const ScrollEffects = lazy(() => import('./ScrollEffects'))
-const InteractionEffects = lazy(() => import('./InteractionEffects'))
+import ScrollEffects from './ScrollEffects'
 
 function Layout() {
   const [searchOpen, setSearchOpen] = useState(false)
@@ -19,8 +18,7 @@ function Layout() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [cartAddedToast, setCartAddedToast] = useState(false)
-  const [desktopScrollEffectsEnabled, setDesktopScrollEffectsEnabled] = useState(false)
-  const [desktopPointerEffectsEnabled, setDesktopPointerEffectsEnabled] = useState(false)
+
   const scrollProgressRef = useRef<HTMLDivElement>(null)
   const location = useLocation()
   const navigate = useNavigate()
@@ -28,27 +26,6 @@ function Layout() {
   const items = useCartStore((state) => state.items)
   const cartCount = items.reduce((count, item) => count + item.quantity, 0)
 
-  useEffect(() => {
-    const scrollEffectsQuery = window.matchMedia(
-      '(min-width: 900px) and (prefers-reduced-motion: no-preference)',
-    )
-    const pointerEffectsQuery = window.matchMedia(
-      '(min-width: 900px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)',
-    )
-
-    function updateEffects() {
-      setDesktopScrollEffectsEnabled(scrollEffectsQuery.matches && !reducedMotion)
-      setDesktopPointerEffectsEnabled(pointerEffectsQuery.matches && !reducedMotion)
-    }
-
-    updateEffects()
-    scrollEffectsQuery.addEventListener('change', updateEffects)
-    pointerEffectsQuery.addEventListener('change', updateEffects)
-    return () => {
-      scrollEffectsQuery.removeEventListener('change', updateEffects)
-      pointerEffectsQuery.removeEventListener('change', updateEffects)
-    }
-  }, [reducedMotion])
 
   const closeCart = useCallback(() => setCartOpen(false), [])
   const openCart = useCallback(() => {
@@ -146,10 +123,7 @@ function Layout() {
 
   return (
     <div className="app-shell">
-      <Suspense fallback={null}>
-        {desktopScrollEffectsEnabled && <ScrollEffects paused={searchOpen || cartOpen || mobileMenuOpen} />}
-        {desktopPointerEffectsEnabled && <InteractionEffects />}
-      </Suspense>
+      <ScrollEffects />
       {cartAddedToast && (
         <Toast
           actionLabel="View Cart"
