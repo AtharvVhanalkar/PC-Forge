@@ -14,6 +14,11 @@ function ScrollEffects({ paused: _paused }: ScrollEffectsProps = {}) {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' })
+    ScrollTrigger.getAll().forEach((trigger) => {
+      if (trigger.trigger && !document.contains(trigger.trigger as Node)) {
+        trigger.kill(true)
+      }
+    })
     ScrollTrigger.refresh()
   }, [location.pathname])
 

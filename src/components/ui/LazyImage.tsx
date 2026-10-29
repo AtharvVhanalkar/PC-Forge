@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ImgHTMLAttributes } from 'react'
+import { useCallback, useEffect, useRef, useState, type ImgHTMLAttributes } from 'react'
 
 interface LazyImageProps extends ImgHTMLAttributes<HTMLImageElement> {
   src: string
@@ -9,14 +9,16 @@ function LazyImage({ alt, className = '', loading = 'lazy', src, ...imageProps }
   const imageRef = useRef<HTMLImageElement>(null)
   const [loaded, setLoaded] = useState(false)
 
+  const markLoaded = useCallback(() => {
+    setLoaded(true)
+  }, [])
+
   useEffect(() => {
     const image = imageRef.current
-    setLoaded(Boolean(image?.complete && image.naturalWidth > 0))
+    if (image && (image.complete || image.naturalWidth > 0)) {
+      setLoaded(true)
+    }
   }, [src])
-
-  function markLoaded() {
-    setLoaded(true)
-  }
 
   return (
     <img
